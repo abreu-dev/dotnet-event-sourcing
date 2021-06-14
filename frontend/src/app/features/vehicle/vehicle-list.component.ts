@@ -8,6 +8,7 @@ import { AddVehicleComponent } from './components/add-vehicle/add-vehicle.compon
 import { UpdateVehicleComponent } from './components/update-vehicle/update-vehicle.component';
 import { ViewVehicleComponent } from './components/view-vehicle/view-vehicle.component';
 import { RemoveVehicleComponent } from './components/remove-vehicle/remove-vehicle.component';
+import { HistoryVehicleComponent } from './components/history-vehicle/history-vehicle.component';
 
 @Component({
     selector: 'app-vehicle-list',
@@ -63,6 +64,14 @@ export class VehicleListComponent implements OnInit {
         this.modalRef.content.onClose.subscribe(() => {
             this.loadVehicles();
         })
+    }
+
+    public showHistoryVehicleModal(vehicle: Vehicle): void {
+        this.modalService.show(HistoryVehicleComponent, {
+            initialState: {
+                vehicle: vehicle
+            }
+        });
     }
 
     public loadVehicles(): void {

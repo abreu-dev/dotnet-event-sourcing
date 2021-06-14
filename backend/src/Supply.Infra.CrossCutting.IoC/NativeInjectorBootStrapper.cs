@@ -5,11 +5,13 @@ using Supply.Application.Interfaces;
 using Supply.Application.Services;
 using Supply.Domain.CommandHandlers;
 using Supply.Domain.Commands.VehicleCommands;
+using Supply.Domain.Core.Data;
 using Supply.Domain.Core.Mediator;
 using Supply.Domain.Events.VehicleEvents;
 using Supply.Domain.Interfaces;
 using Supply.Infra.Data.Context;
 using Supply.Infra.Data.EventHandlers;
+using Supply.Infra.Data.EventSourcing;
 using Supply.Infra.Data.Repositories;
 
 namespace Supply.Infra.CrossCutting.IoC
@@ -36,7 +38,10 @@ namespace Supply.Infra.CrossCutting.IoC
 
             // Infra - Data
             services.AddScoped<IVehicleRepository, VehicleRepository>();
+            services.AddScoped<IEventSourcingRepository, EventSourcingRepository>();
+
             services.AddScoped<SupplyContext>();
+            services.AddScoped<EventSourcingContext>();
         }
     }
 }

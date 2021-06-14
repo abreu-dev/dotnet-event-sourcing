@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
 import { Observable } from 'rxjs';
+import { StoredEvent } from 'src/app/shared/models/stored-event';
 
 import { environment } from 'src/environments/environment';
 
@@ -17,6 +18,10 @@ export class VehicleService {
 
     public getById(id: string): Observable<Vehicle> {
         return this.http.get<Vehicle>(`${environment.apiUrl}/vehicles/${id}`);
+    }
+
+    public getHistory(id: string): Observable<StoredEvent[]> {
+        return this.http.get<StoredEvent[]>(`${environment.apiUrl}/vehicles/history/${id}`);
     }
 
     public add(vehicle: Vehicle): Observable<any> {

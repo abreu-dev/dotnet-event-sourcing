@@ -3,6 +3,7 @@ using FluentValidation.Results;
 using Supply.Application.DTOs.VehicleDTOs;
 using Supply.Application.Interfaces;
 using Supply.Domain.Commands.VehicleCommands;
+using Supply.Domain.Core.Data;
 using Supply.Domain.Core.Mediator;
 using Supply.Domain.Interfaces;
 using System;
@@ -16,14 +17,17 @@ namespace Supply.Application.Services
         private readonly IMapper _mapper;
         private readonly IMediatorHandler _mediator;
         private readonly IVehicleRepository _vehicleRepository;
+        private readonly IEventSourcingRepository _eventSourcingRepository;
 
         public VehicleAppService(IMapper mapper,
                                  IMediatorHandler mediator,
-                                 IVehicleRepository vehicleRepository)
+                                 IVehicleRepository vehicleRepository, 
+                                 IEventSourcingRepository eventSourcingRepository)
         {
             _mapper = mapper;
             _mediator = mediator;
             _vehicleRepository = vehicleRepository;
+            _eventSourcingRepository = eventSourcingRepository;
         }
 
         public async Task<IEnumerable<VehicleDTO>> GetAll()
@@ -34,6 +38,11 @@ namespace Supply.Application.Services
         public async Task<VehicleDTO> GetById(Guid id)
         {
             return _mapper.Map<VehicleDTO>(await _vehicleRepository.GetById(id));
+        }
+
+        public async Task<IEnumerable<StoredEvent>> GetHistory(Guid id)
+        {
+            return await _eventSourcingRepository.GetEvents(id);
         }
 
         public async Task<ValidationResult> Add(AddVehicleDTO addVehicleDTO)

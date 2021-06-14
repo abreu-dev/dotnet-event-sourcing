@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Supply.Application.DTOs.VehicleDTOs;
 using Supply.Application.Interfaces;
+using Supply.Domain.Core.Data;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -44,6 +45,12 @@ namespace Supply.Api.Controllers
         public async Task<IActionResult> Remove(Guid id)
         {
             return !ModelState.IsValid ? CustomResponse(ModelState) : CustomResponse(await _vehicleAppService.Remove(id));
+        }
+
+        [HttpGet("history/{id:guid}")]
+        public async Task<IEnumerable<StoredEvent>> GetHistory(Guid id)
+        {
+            return await _vehicleAppService.GetHistory(id);
         }
     }
 }

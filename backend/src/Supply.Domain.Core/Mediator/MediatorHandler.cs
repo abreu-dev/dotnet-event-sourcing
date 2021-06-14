@@ -1,7 +1,7 @@
-﻿using System.Threading.Tasks;
-using FluentValidation.Results;
+﻿using FluentValidation.Results;
 using MediatR;
 using Supply.Domain.Core.Messaging;
+using System.Threading.Tasks;
 
 namespace Supply.Domain.Core.Mediator
 {

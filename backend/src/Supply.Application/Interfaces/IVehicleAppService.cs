@@ -1,8 +1,9 @@
-﻿using System;
+﻿using FluentValidation.Results;
+using Supply.Application.DTOs.VehicleDTOs;
+using Supply.Domain.Core.Data;
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using FluentValidation.Results;
-using Supply.Application.DTOs.VehicleDTOs;
 
 namespace Supply.Application.Interfaces
 {
@@ -10,6 +11,7 @@ namespace Supply.Application.Interfaces
     {
         Task<IEnumerable<VehicleDTO>> GetAll();
         Task<VehicleDTO> GetById(Guid id);
+        Task<IEnumerable<StoredEvent>> GetHistory(Guid id);
 
         Task<ValidationResult> Add(AddVehicleDTO addVehicleDTO);
         Task<ValidationResult> Update(UpdateVehicleDTO updateVehicleDTO);
